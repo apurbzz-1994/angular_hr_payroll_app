@@ -1,0 +1,75 @@
+<!--Loading message-->
+<div class="alert alert-info" role="alert" *ngIf = "this.isLoading && !this.errorForFetching
+&& !this.errorForPosting">
+    Processing your request...
+</div>
+<!--Message alerts and displays------------------------------------------------------------>
+<div class="alert alert-danger" role="alert" *ngIf = "this.errorForFetching">
+        <h4>An error has occured</h4>
+        <p>{{ this.errorForFetching }}</p>
+        <p><button class="btn btn-danger" (click) = "onHandleFetchError()">Dismiss</button></p>
+</div>
+<div class="alert alert-danger" role="alert" *ngIf = "this.errorForPosting">
+        <h4>Could not save payslip to server</h4>
+        <p>{{ this.errorForFetching }}</p>
+        <p><button class="btn btn-danger" (click) = "onHandlePostError()">Dismiss</button></p>
+</div>
+<div class="alert alert-info" role="alert" *ngIf = "this.showEmployeeAlreadyPaid">
+        <h4>Payment not processed</h4>
+        <p>This employee has already been paid for this month.</p>
+        <p><button class="btn btn-info" (click) = "onHandleEmployeeAlreadyPaid()">Dismiss</button></p>
+</div>
+<div class="alert alert-success" role="alert" *ngIf = "this.showPayslipPostedMessage">
+        <h4>Payment Successful</h4>
+        <p>Payslip added to records for auditing.</p>
+        <p><button class="btn btn-success" (click) = "onHandlePostedMessage()">Dismiss</button></p>
+</div>
+<!-------------------------------------------------------------------------------------------------->
+<h3>Payslip</h3>
+<h5>{{payslipData.firstname}} {{payslipData.lastname}}</h5>
+
+<table class="table table-striped">
+    <tbody>
+            <tr>
+                <td><b>Pay Date</b></td>
+                <td>{{ payslipData.paydate }}</td>
+            </tr>
+            <!--Pay Frequency-->
+            <tr>
+                <td><b>Pay Frequency</b></td>
+                 <td>Monthly</td>
+            </tr>
+            <!--Annual Income-->
+            <tr>
+                <td><b>Annual Income</b></td>
+                <td>${{ payslipData.annualincome }}</td>
+            </tr>
+             <!--Gross Income-->
+             <tr>
+                <td><b>Gross Income</b></td>
+                <td>${{ payslipData.grossincome }}</td>
+            </tr>
+            <!--Income Tax-->
+            <tr>
+                <td><b>Income Tax</b></td>
+                <td>${{ payslipData.incometax }}</td>
+            </tr>
+            <!--Net Income-->
+            <tr>
+                <td><b>Net Income</b></td>
+                <td>${{ payslipData.netincome}}</td>
+            </tr>
+            <!--Super-->
+            <tr>
+                <td><b>Super</b></td>
+                <td>${{ payslipData.superrate }}</td>
+            </tr>
+            <!--Pay-->
+            <tr>
+                <td><b>Pay</b></td>
+                <td>${{ payslipData.pay }}</td>
+            </tr>
+    </tbody>
+</table>
+<button class = "btn btn-primary" style="float: right;" (click)="onButtonPress(this.payslipData.firstname,
+this.payslipData.lastname)" [disabled]="!enablePayButton">Pay</button>

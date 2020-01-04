@@ -1,0 +1,67 @@
+<div class="container">
+    <div class="row addedmargin">
+        <div class = "col-md-4">
+            <h3>Employee Info</h3>
+            <!--form for payslip-->
+            <form (ngSubmit)="onGeneratePress(f)" #f="ngForm">
+                <div class = "form-group">
+                    <label for="employeeFirstName">First Name</label>
+                    <input type="text" class="form-control" id="firstname" placeholder="eg. John"
+                    [(ngModel)] = "employeeData.firstname" name="firstname" required #firstname="ngModel">
+                    <!--Error message for blank input-->
+                    <span class="help-block" *ngIf="!firstname.valid && firstname.touched">
+                        Mandatory - Please provide your first name.</span>
+                </div>
+                <div class = "form-group">
+                    <label for="employeeLastName">Last Name</label>
+                    <input type="text" class="form-control" id="lastname" placeholder="eg. Doe"
+                    [(ngModel)] = "employeeData.lastname" name="lastname" required #lastname="ngModel">
+                     <!--Error message for blank input-->
+                     <span class="help-block" *ngIf="!lastname.valid && lastname.touched">
+                         Mandatory - Please provide your last name.</span>
+                </div>
+                <div class = "form-group">
+                    <label for="employeeAnnualSalary">Annual Salary</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">$</span>
+                        <input type="text" class="form-control" id="salary" placeholder="eg. 50000"
+                        [(ngModel)] = "employeeData.annualsalary" name="salary" required pattern="^[1-9]\d*(\.\d+)?$" #salary="ngModel">
+                      </div>
+                      <!--Error message for blank input and characters instead of
+                      numbers-->
+                      <div  *ngIf="!salary.valid && salary.touched">
+                            <p><span class="help-block">
+                                    Mandatory - Please provide your annual salary.</span></p>
+                            <p><span class="help-block">
+                                    Please provide a numeric value.</span></p>
+                        </div>
+                </div>
+                <div class = "form-group">
+                    <label for="employeeSuperRate">Super Rate</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">%</span>
+                        <input type="text" class="form-control" id="super" placeholder="eg. 9"
+                        [(ngModel)] = "employeeData.superrate" name="super" required pattern="^[1-9][0-9]?$|^100$" #super="ngModel">
+                    </div>
+                   <!--Error message for blank input and 1-100 check-->
+                      <div  *ngIf="!super.valid && super.touched">
+                            <p><span class="help-block">
+                                    Mandatory - Please provide your super rate.</span></p>
+                            <p><span class="help-block">
+                                    Please provide a numeric value between 1-100.</span></p>
+                        </div>
+                </div>
+
+                <!--Submit button-->
+                <button class = "btn btn-primary" type="submit"
+                [disabled]="!f.valid">Generate Payslip</button>
+            </form>
+        </div>
+        <div class = "col-md-8">
+            <!--payslip generation component-->
+            <app-payslip [payslipData] = "payslipData" [enablePayButton] = "enablePayButton"></app-payslip>
+        </div>
+    </div>
+</div>
+
+
